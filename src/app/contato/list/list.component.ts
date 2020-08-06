@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ContatoService } from '../contato.service';
+import { map, take, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private contatoService: ContatoService
+  ) { }
 
   ngOnInit() {
+    this.contatoService.getAll()
+      .pipe(
+        catchError(error => of(console.log(error)))
+      )
+      .subscribe((res: any[]) => console.log(res))      
   }
 
 }

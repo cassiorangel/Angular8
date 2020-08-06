@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ContatoService } from '../contato.service';
 
 @Component({
   selector: 'app-edit',
@@ -6,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-
-  constructor() { }
+  contatoForm
+  constructor(
+    private fb: FormBuilder,
+    private contatoService: ContatoService
+  ) { }
 
   ngOnInit() {
+    this.contatoForm = this.fb.group({
+      nome: [null],
+      telefone: [null]
+    });
+  }
+  onSubmit() {
+    console.log(this.contatoForm.value)
+    let contato = this.contatoForm.value
+    this.contatoService.insert(contato)
+
   }
 
 }
