@@ -14,6 +14,8 @@ export class EditComponent implements OnInit {
     private contatoService: ContatoService
   ) { }
 
+ 
+
   ngOnInit() {
     this.contatoForm = this.fb.group({
       nome: [null],

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ContatoService } from '../contato.service';
-import { map, take, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { of, Subscription, Observable } from 'rxjs';
+import { Contato } from 'src/app/models/contato';
 
 @Component({
   selector: 'app-list',
@@ -9,6 +10,8 @@ import { of } from 'rxjs';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
+
+  dadosContato: Subscription;
 
   constructor(
     private contatoService: ContatoService
@@ -19,7 +22,13 @@ export class ListComponent implements OnInit {
       .pipe(
         catchError(error => of(console.log(error)))
       )
-      .subscribe((res: any[]) => console.log(res))      
+      .subscribe((res: any) => this.dadosContato = res)
   }
 
+  ngOnDestroy() {
+    if (this.dadosContato) {
+      this.dadosContato.unsubscribe();
+    }
+
+  }
 }

@@ -1,1 +1,22 @@
-<p>list works!</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contato of dadosContato">
+        <th scope="row">1</th>
+        <td>{{ contato.nome }}</td>
+        <td>{{ contato.telefone }}</td>
+        <td>
+            <button class="btn btn-dark btn-sm" (click)="onEdit()">Editar</button>
+            <button class="btn btn-danger btn-sm" style="margin-left: 6px;" (click)="onDelete()">Delete</button>
+        </td>
+      </tr>
+     
+    </tbody>
+  </table>
